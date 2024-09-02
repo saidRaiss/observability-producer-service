@@ -1,1 +1,5 @@
-spring.application.name=observability
+spring:
+  application:
+    name: observability-producer-service
+  kafka:
+    bootstrap-servers: kafka:9092
