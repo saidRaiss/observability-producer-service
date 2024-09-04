@@ -10,14 +10,22 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class KafkaProducer {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
-
     private static final String TOPIC = "topic-observability";
+
+    private final KafkaTemplate<String, Message> kafkaTemplate;
+
 
     @PostMapping("/publish")
     public String publishMessage(@RequestBody Message message) {
-        kafkaTemplate.send(TOPIC, message.content());
-        log.info("Message published successfully");
+        var future = kafkaTemplate.send(TOPIC, message);
+        future.whenComplete((sendResult, exception) -> {
+            if (exception != null) {
+                future.completeExceptionally(exception);
+            } else {
+                future.complete(sendResult);
+            }
+            log.info("Task status send to Kafka topic : {}, Message: {}", TOPIC, message);
+        });
         return "Done";
     }
 
