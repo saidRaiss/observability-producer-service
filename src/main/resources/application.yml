@@ -3,15 +3,15 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: kafka:9090
+    bootstrap-servers: ${app.kafka.bootstrap}
   application:
     name: observability-producer-service
 
 app:
   kafka:
-    bootstrap: PLAINTEXT://kafka:9090
+    bootstrap: PLAINTEXT://localhost:9090
     topic: topic-observability
   outbound:
     rest-clients:
       bridge:
-        base-url: http://bridge:8084
+        base-url: http://localhost:8084

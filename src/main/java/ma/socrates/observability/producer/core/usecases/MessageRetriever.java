@@ -14,7 +14,7 @@ public class MessageRetriever {
     private final BridgeApi bridgeApi;
 
     public Message handle(String id) {
-        log.info("Retrieve message id: {}", id);
+        log.info("Retrieving through bridge message id: {}", id);
         return bridgeApi.getMessage(id);
     }
 }
