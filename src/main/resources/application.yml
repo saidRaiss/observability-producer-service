@@ -1,3 +1,17 @@
+server:
+  port: 8080
+
 spring:
+  kafka:
+    bootstrap-servers: kafka:9090
   application:
     name: observability-producer-service
+
+app:
+  kafka:
+    bootstrap: PLAINTEXT://kafka:9090
+    topic: topic-observability
+  outbound:
+    rest-clients:
+      bridge:
+        base-url: http://bridge:8084
